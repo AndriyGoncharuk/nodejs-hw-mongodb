@@ -21,4 +21,6 @@ userSchema.post("save", handleSaveError);
 userSchema.pre("findOneAndUpdate", setUpdateSettings);
 userSchema.post("findOneAndUpdate", handleSaveError);
 
-export const ContactCollection = model("user", userSchema);
+const UserCollection = model("user", userSchema);
+
+export default UserCollection;
