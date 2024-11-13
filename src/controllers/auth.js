@@ -1,4 +1,4 @@
-// import createHttpError from "http-errors";
+import createHttpError from "http-errors";
 
 import { register } from "../services/auth.js";
 
@@ -9,4 +9,9 @@ export const registerController = async (req, res) => {
     status: 201,
     message: "Successfully registered user",
   });
+};
+
+export const loginController = async (req, res) => {
+  const session = await register(req.body);
+  console.log(session);
 };
