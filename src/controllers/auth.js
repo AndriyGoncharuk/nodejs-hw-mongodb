@@ -1,7 +1,6 @@
 import createHttpError from "http-errors";
 
 import { register, login } from "../services/auth.js";
-import { accessTokenLifetime } from "../constans/users.js";
 
 export const registerController = async (req, res) => {
   const data = await register(req.body);
