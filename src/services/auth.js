@@ -1,6 +1,12 @@
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 import { randomBytes } from "crypto";
+import jwt from "jsonwebtoken";
+
+import { SMTP } from "../constans/index.js";
+import { env } from "../utils/env.js";
+import { sendEmail } from "../utils/sendMail.js";
+
 import UserCollection from "../db/models/user.js";
 import SessionCollection from "../db/models/session.js";
 import {
@@ -86,6 +92,21 @@ export const requestResetToken = async (email) => {
   if (!user) {
     throw createHttpError(404, "User not found");
   }
+  const resetToken = jwt.sign(
+    {
+      sub: user._id,
+      email,
+    },
+    env("JWT_SECRET"),
+    {
+      expiresIn: "15m",
+    },
+  );
 
-  //доповнимо її трохи пізніше
+  await sendEmail({
+    from: env(SMTP.SMTP_FROM),
+    to: email,
+    subject: "Reset your password",
+    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+  });
 };
