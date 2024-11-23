@@ -1,4 +1,5 @@
 import createHttpError from "http-errors";
+import { requestResetToken } from "../services/auth.js";
 
 import {
   register,
@@ -67,4 +68,13 @@ export const logoutController = async (req, res) => {
   res.clearCookie("refreshToken");
 
   res.status(204).send();
+};
+
+export const requestResetEmailController = async (req, res) => {
+  await requestResetToken(req.body.email);
+  res.json({
+    message: "Reset password email was successfully sent!",
+    status: 200,
+    data: {},
+  });
 };
