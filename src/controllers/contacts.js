@@ -23,6 +23,7 @@ export const getContactsController = async (req, res) => {
     sortBy,
     sortOrder,
     filter,
+    userId,
   });
 
   res.json({
