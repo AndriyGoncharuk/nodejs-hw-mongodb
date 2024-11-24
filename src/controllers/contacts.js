@@ -10,6 +10,11 @@ import mongoose from "mongoose";
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
+// import { saveFileToUploadDir } from "../utils/saveFileToCloudinary.js";
+
+import { uploadToCloudinary } from "../utils/saveFileToCloudinary.js";
+
+// const enableCloudinary = env("ENABLE_CLOUDINARY");
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -56,7 +61,13 @@ export const getContactsByIdController = async (req, res, next) => {
 
 export const createContactsController = async (req, res) => {
   const { _id: userId } = req.user;
-  const data = await createContact({ ...req.body, userId });
+  let photoUrl = null;
+
+  if (req.file) {
+    photoUrl = await uploadToCloudinary(req.file);
+  }
+
+  const data = await createContact({ ...req.body, photo: photoUrl, userId });
   // const contact = await createContact(req.body);
 
   res.status(201).json({
