@@ -13,7 +13,7 @@ parameters:
       type: string
       example:  '6750a7375d24cea16a72285b'
 responses: 
-  '200':
+  '204':
     description: 'Delete contact by id'
   '404':
     $ref: '../../../components/responses/404.yaml'

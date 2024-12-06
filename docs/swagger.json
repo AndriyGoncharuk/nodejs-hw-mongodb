@@ -14,7 +14,7 @@
       "url": "http://localhost:3000"
     },
     {
-      "url": "https://nodejs-hw-mongodb-6-f7hd.onrender.com"
+      "url": "https://nodejs-hw-mongodb-7-swagger-pniw.onrender.com"
     }
   ],
   "tags": [
@@ -197,6 +197,8 @@
                 "required": [
                   "name",
                   "phoneNumber",
+                  "email",
+                  "isFavourite",
                   "contactType"
                 ],
                 "properties": {
@@ -461,7 +463,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "204": {
             "description": "Delete contact by id"
           },
           "404": {
